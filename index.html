@@ -278,7 +278,45 @@ function moeda(v){return (Number(v)||0).toLocaleString("pt-BR",{style:"currency"
 function hojeMes(){return new Date().toISOString().slice(0,7)}
 function openTab(id){document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));document.getElementById("nav_"+id)?.classList.add("active");pageTitle.textContent=({dashboard:"Dashboard",alunos:"Alunos",turmas:"Turmas e Horários",financeiro:"Financeiro",avaliacoes:"Avaliação Física",vendas:"Controle de Vendas",comunicacao:"Comunicação",relatorios:"Relatórios"}[id]||"Cross RC");renderAll()}
 function fileData(input){return new Promise(res=>{const f=input.files[0];if(!f)return res("");const r=new FileReader();r.onload=()=>res(r.result);r.readAsDataURL(f)})}
-async function salvarAluno(){if(!nomeAluno.value.trim())return alert("Digite o nome do aluno.");const foto=await fileData(fotoAluno);const aluno={id:alunoId.value||uid(),foto,nome:nomeAluno.value,telefone:telAluno.value,nascimento:nascAluno.value,turma:turmaAluno.value,status:statusAluno.value,valor:+valorAluno.value||0,vencimento:+vencAluno.value||1,matricula:matAluno.value,obs:obsAluno.value};const i=db.alunos.findIndex(a=>a.id==aluno.id);if(i>=0){if(!foto)aluno.foto=db.alunos[i].foto;db.alunos[i]=aluno}else db.alunos.push(aluno);limparAluno();save()}
+async function salvarAluno(){
+
+  const nome = document.getElementById("nomeAluno");
+
+  if (!nome || !nome.value.trim()) {
+    alert("Digite o nome do aluno.");
+    return;
+  }
+
+  const foto = await fileData(
+    document.getElementById("fotoAluno")
+  );
+
+  const aluno = {
+    id: document.getElementById("alunoId").value || uid(),
+    foto,
+    nome: nome.value,
+    telefone: document.getElementById("telAluno").value,
+    nascimento: document.getElementById("nascAluno").value,
+    turma: document.getElementById("turmaAluno").value,
+    status: document.getElementById("statusAluno").value,
+    valor: +document.getElementById("valorAluno").value || 0,
+    vencimento: +document.getElementById("vencAluno").value || 1,
+    matricula: document.getElementById("matAluno").value,
+    obs: document.getElementById("obsAluno").value
+  };
+
+  const i = db.alunos.findIndex(a => a.id == aluno.id);
+
+  if (i >= 0) {
+    if (!foto) aluno.foto = db.alunos[i].foto;
+    db.alunos[i] = aluno;
+  } else {
+    db.alunos.push(aluno);
+  }
+
+  limparAluno();
+  save();
+}
 function limparAluno(){alunoId.value=nomeAluno.value=telAluno.value=nascAluno.value=valorAluno.value=vencAluno.value=obsAluno.value="";matAluno.value=new Date().toISOString().slice(0,10);fotoAluno.value="";statusAluno.value="Ativo"}
 function editarAluno(id){const a=db.alunos.find(x=>x.id==id);if(!a)return;alunoId.value=a.id;nomeAluno.value=a.nome;telAluno.value=a.telefone||"";nascAluno.value=a.nascimento||"";turmaAluno.value=a.turma||"Cross";statusAluno.value=a.status||"Ativo";valorAluno.value=a.valor||"";vencAluno.value=a.vencimento||"";matAluno.value=a.matricula||"";obsAluno.value=a.obs||"";openTab("alunos")}
 function excluirAluno(id){if(confirm("Excluir aluno?")){db.alunos=db.alunos.filter(a=>a.id!=id);save()}}
