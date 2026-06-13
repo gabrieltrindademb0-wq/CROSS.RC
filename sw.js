@@ -1,4 +1,4 @@
-const CACHE="crossrc-v6";
+const CACHE="crossrc-v7";
 self.addEventListener("install",e=>{
   self.skipWaiting();
   e.waitUntil(caches.open(CACHE).then(c=>c.addAll(["./","./index.html","./manifest.json"])));
