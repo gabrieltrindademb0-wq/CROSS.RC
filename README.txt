@@ -1,10 +1,4 @@
-Adicionar no <head>:
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#b7ff00">
+Cross RC Gestão v5
 
-Adicionar antes de </body>:
-<script>
-if ('serviceWorker' in navigator) {
- navigator.serviceWorker.register('./sw.js');
-}
-</script>
+Arquivos atualizados: index.html, Code.gs, manifest.json, sw.js e crossrc_banco_de_dados.xlsx.
+Novidades: perfil do aluno, dados de responsável, vencimento com data completa e layout profissional.
