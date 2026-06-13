@@ -1,5 +1,5 @@
 const SHEETS = {
-  alunos: ["id","foto","nome","telefone","nascimento","turma","status","valor","vencimento","matricula","responsavelNome","responsavelTelefone","responsavelCpf","responsavelParentesco","responsavelObs","obs"],
+  alunos: ["id","foto","nome","telefone","nascimento","turma","status","valor","vencimento","matricula","obs"],
   pagamentos: ["id","alunoId","mes","valor","forma","data"],
   avaliacoes: ["id","alunoId","data","peso","altura","gordura","muscular","cintura","quadril","braco","coxa","metaPeso","metaGordura","obs","calc","fotos"],
   vendas: ["id","alunoId","produto","qtd","valor","desconto","total","forma","data","obs"],
